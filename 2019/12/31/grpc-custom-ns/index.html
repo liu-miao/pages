@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小米信息部技术团队">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      gRPC Name Resolver 原理及实践 | 小米信息部技术团队
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>小米信息部技术团队</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">标签</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">项目</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/atom" class="item-link">订阅</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">标签</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">归档</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">项目</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/atom" class="menu-link">订阅</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>gRPC Name Resolver 原理及实践</h2>
+  <p class="post-date">2019-12-31</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><!-- TOC -->
+<ul>
+<li><a href="#grpc-name-resolver-原理及实践">gRPC Name Resolver 原理及实践</a><ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#实现自定义-name-resolver">实现自定义 Name Resolver</a><ul>
+<li><a href="#定义-nsresolver">定义 nsResolver</a></li>
+<li><a href="#定义-nsresolverbuilder">定义 nsResolverBuilder</a></li>
+<li><a href="#封装-grpcdial-方法">封装 gRPC.Dial() 方法</a></li>
+</ul>
+</li>
+<li><a href="#grpc-resolver-原理">gRPC resolver 原理</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#下文预告">下文预告</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="gRPC-Name-Resolver-原理及实践"><a href="#gRPC-Name-Resolver-原理及实践" class="headerlink" title="gRPC Name Resolver 原理及实践"></a>gRPC Name Resolver 原理及实践</h1><p><strong>[作者简介]</strong> 郑伟，小米信息技术部架构组</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>gRPC Name Resolver（名称解析）是 gRPC 核心功能之一，目前大部分 gRPC Name Resolver 都采用 ETCD 来实现，通过引入 ETCD Client sdk，和 ETCD Server 之间通过 gRPC 双向流的方式进行数据交互。服务端定时上报服务名称、实例数据至 ETCD 实现服务注册，客户端进行监听指定服务名称对应实例变化来实现服务发现。</p>
+<p><img src="svc-naming.png" alt="svc-naming"></p>
+<p>基于 ETCD 实现的 Name Resolver 已有很多相关的文章，同时 github 上也有很多相关类库，本文不做赘述。</p>
+<p>有些公司内部已有成熟的 Name Server，比如我们小米内部 SOA 平台，已稳定运行多年。所以我们没有采用直连 ETCD 的方案，而是基于该 Name Server 来做适配。下文会给大家介绍下实现原理。</p>
+<h2 id="实现自定义-Name-Resolver"><a href="#实现自定义-Name-Resolver" class="headerlink" title="实现自定义 Name Resolver"></a>实现自定义 Name Resolver</h2><p>gRPC 支持将 DNS 作为默认的 Name System，同时也提供了一些 API 方便开发者构建和使用自定义的 Resolver。本文所有代码均基于 <a href="https://github.com/grpc/grpc-go/tree/v1.26.0" target="_blank" rel="noopener">grpc@v1.26.0</a> 实现。自定义 gRPC Name Resolver 源码结构大概如下所示：</p>
+<p>整个 resolver 代码比较简单，包含三个 go 文件：<code>resolver.go</code>、<code>resolver_build.go</code>、<code>dail.go</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ns                        <span class="comment"># 自定义 resolver 包名</span></span><br><span class="line">├── dial.go               <span class="comment"># 封装了 gRPC 包的 grpc.DialContext() 方法，严格来说 dail.go 不应该放在 ns 包下，本例中这么做只是为简化包布局，方便读者理解</span></span><br><span class="line">├── resolver.go           <span class="comment"># 实现了 gRPC resolver 包 Resolver 接口的 nsResolver</span></span><br><span class="line">└── resolver_builder.go   <span class="comment"># 实现了 gRPC resolver 包 ResolverBuilder 接口的 nsResolverBuilder</span></span><br></pre></td></tr></table></figure>
+<h3 id="定义-nsResolver"><a href="#定义-nsResolver" class="headerlink" title="定义 nsResolver"></a>定义 nsResolver</h3><p>主要逻辑在 <code>resolver.go</code> :</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"context"</span></span><br><span class="line">  <span class="string">"encoding/json"</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">  <span class="string">"strings"</span></span><br><span class="line">  <span class="string">"time"</span></span><br><span class="line"></span><br><span class="line">  <span class="string">"mypkg/internal/logz"</span>        <span class="comment">// 私有日志包，基于 uber 开源的 zap 实现</span></span><br><span class="line">  sdk <span class="string">"mypkg/internal/soa-sdk"</span> <span class="comment">// 私有 ns sdk 包，封装了内部 soa 平台进行服务发现的 sdk</span></span><br><span class="line"></span><br><span class="line">  _ <span class="string">"google.golang.org/grpc"</span></span><br><span class="line">  <span class="string">"google.golang.org/grpc/resolver"</span></span><br><span class="line">  <span class="string">"google.golang.org/grpc/serviceconfig"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">  <span class="comment">// syncNSInterval 定义了从 NS 服务同步实例列表的周期</span></span><br><span class="line">  syncNSInterval = <span class="number">1</span> * time.Second</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// nsResolver 实现了 resolver.Resolver 接口</span></span><br><span class="line"><span class="keyword">type</span> nsResolver <span class="keyword">struct</span> &#123;</span><br><span class="line">  target    resolver.Target</span><br><span class="line">  cc        resolver.ClientConn</span><br><span class="line">  ctx       context.Context</span><br><span class="line">  cancel    context.CancelFunc</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// watcher 轮询并更新指定 CalleeService 服务的实例变化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">watcher</span><span class="params">()</span></span> &#123;</span><br><span class="line">  r.updateCC()</span><br><span class="line">  ticker := time.NewTicker(syncNSInterval)</span><br><span class="line">  <span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="comment">// 当* nsResolver Close 时退出监听</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-r.ctx.Done():</span><br><span class="line">      ticker.Stop()</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-ticker.C:</span><br><span class="line">      <span class="comment">// 调用* nsResolver.updagteCC() 方法，更新实例地址</span></span><br><span class="line">      r.updateCC()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// updateCC 更新 resolver.Resolver.ClientConn 配置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">updateCC</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// 从 NS 服务获取指定 target 的实例列表</span></span><br><span class="line">  instances, err := r.getInstances(r.target)</span><br><span class="line">  <span class="comment">// 如果获取实例列表失败，或者实例列表为空，则不更新 resolver 中实例列表</span></span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> || <span class="built_in">len</span>(instances.CalleeIns) == <span class="number">0</span> &#123;</span><br><span class="line">    logz.Warn(<span class="string">"[mis] error retrieving instances from Mis"</span>, logz.Any(<span class="string">"target"</span>, r.target), logz.Error(err))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 组装实例列表 []resolver.Address</span></span><br><span class="line">  <span class="comment">// resolver.Address 结构体表示 grpc server 端实例地址</span></span><br><span class="line">  <span class="keyword">var</span> newAddrs []resolver.Address</span><br><span class="line">  <span class="keyword">for</span> k := <span class="keyword">range</span> instances.CalleeIns &#123;</span><br><span class="line">    newAddrs = <span class="built_in">append</span>(newAddrs, instances.CalleeIns)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 更新实例列表</span></span><br><span class="line">  <span class="comment">// grpc 底层 LB 组件对每个服务端实例创建一个 subConnection。并根据设定的 LB 策略，选择合适的 subConnection 处理某次 RPC 请求。</span></span><br><span class="line">  <span class="comment">// 此处代码比较复杂，后续在 LB 相关原理文章中再做概述</span></span><br><span class="line">  r.cc.UpdateState(resolver.State&#123;Addresses: newAddrs&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ResolveNow 实现了 resolver.Resolver.ResolveNow 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*nsResolver)</span> <span class="title">ResolveNow</span><span class="params">(o resolver.ResolveNowOption)</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Close 实现了 resolver.Resolver.Close 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">Close</span><span class="params">()</span></span> &#123;</span><br><span class="line">  r.cancel()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// instances 包含调用方服务名、被调方服务名、被调方实例列表等数据</span></span><br><span class="line"><span class="keyword">type</span> instances <span class="keyword">struct</span> &#123;</span><br><span class="line">    callerService <span class="keyword">string</span></span><br><span class="line">    calleeService <span class="keyword">string</span></span><br><span class="line">    calleeIns     []<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// getInstances 获取指定服务所有可用的实例列表</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">getInstances</span><span class="params">(target resolver.Target)</span> <span class="params">(s *instances, e error)</span></span> &#123;</span><br><span class="line">  auths := strings.Split(target.Authority, <span class="string">"@"</span>)</span><br><span class="line">  <span class="comment">// auths[0] 为 callerService 名，target.Endpoint 为 calleeService 名</span></span><br><span class="line">  <span class="comment">// 通过自定义 sdk 从内部 NameServer 查询指定 calleeService 对应的实例列表</span></span><br><span class="line">  ins, e := sdk.GetInstances(auths[<span class="number">0</span>], target.Endpoint)</span><br><span class="line">  <span class="keyword">if</span> e != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, e</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &amp;instances&#123;</span><br><span class="line">    callerService: auths[<span class="number">0</span>],</span><br><span class="line">    calleeService: target.Endpoint,</span><br><span class="line">    calleeIns:     ins.Instances,</span><br><span class="line">  &#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义-nsResolverBuilder"><a href="#定义-nsResolverBuilder" class="headerlink" title="定义 nsResolverBuilder"></a>定义 nsResolverBuilder</h3><p><code>ns/resolver_builder.go</code> 构建 nsResolver 时，我们参考 <code>google.golang.org/grpc/resolver/dns/dns_resolver.go</code> 源码，采用 Builder 设计模式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"context"</span></span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">  <span class="string">"google.golang.org/grpc/resolver"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// init 将定义好的 NS Builder 注册到 resolver 包中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  resolver.Register(NewBuilder())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewBuilder 构造 nsResolverBuilder</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewBuilder</span><span class="params">()</span> <span class="title">resolver</span>.<span class="title">Builder</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &amp;nsResolverBuilder&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// nsResolverBuilder 实现了 resolver.Builder 接口，用来构造定义好的 Resolver Bulder</span></span><br><span class="line"><span class="keyword">type</span> nsResolverBuilder <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// URI 返回某个服务的统一资源描述符（URI），这个 URI 可以从 nsResolver 中查询实例列表</span></span><br><span class="line"><span class="comment">// URI 设计时可以遵循 RFC-3986(https://tools.ietf.org/html/rfc3986) 规范，</span></span><br><span class="line"><span class="comment">// 比如本例中 ns 格式为：ns://callerService:@calleeService</span></span><br><span class="line"><span class="comment">// 其中 ns 为协议名，callerService 为订阅方服务名（即主调方服务名），calleeService 为发布方服务名（即被调方服务名）</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">URI</span><span class="params">(callerService, calleeService <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> fmt.Sprintf(<span class="string">"ns://%s:@%s"</span>, callerService, calleeService)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Build 实现了 resolver.Builder.Build 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*nsResolverBuilder)</span> <span class="title">Build</span><span class="params">(target resolver.Target, cc resolver.ClientConn, opts resolver.BuildOption)</span> <span class="params">(resolver.Resolver, error)</span></span> &#123;</span><br><span class="line">  ctx, cancel := context.WithCancel(context.Background())</span><br><span class="line">  r := &amp;nsResolver&#123;</span><br><span class="line">    target: target,</span><br><span class="line">    cc:     cc,</span><br><span class="line">    ctx:    ctx,</span><br><span class="line">    cancel: cancel,</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 启动协程，响应指定 Name 服务实例变化</span></span><br><span class="line">  <span class="keyword">go</span> r.watcher()</span><br><span class="line">  <span class="keyword">return</span> r, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Scheme 实现了 resolver.Builder.Scheme 方法</span></span><br><span class="line"><span class="comment">// Scheme 方法定义了 ns resolver 的协议名</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*nsResolverBuilder)</span> <span class="title">Scheme</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"ns"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="封装-gRPC-Dial-方法"><a href="#封装-gRPC-Dial-方法" class="headerlink" title="封装 gRPC.Dial() 方法"></a>封装 gRPC.Dial() 方法</h3><p>实现 <code>nsResolver</code> <code>nsResolverBuilder</code> 后，我们还需要对 <code>grpc.Dial()</code> 方法进行封装，方便业务方适用。封装后 <code>dial.go</code> 代码如下所示（<strong>严格来说 <code>dial.go</code> 不应该放在 <code>ns</code> 包中，本例中这么做只是为简化包布局，方便读者理解</strong>）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ns</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dial 封装 `grpc.Dial()` 方法以供业务方代码初始化 *grpc.ClientConn。</span></span><br><span class="line"><span class="comment">// 业务方可使用此 Dial 方法基于主调方服务名、被调方服务名等参数构造 *grpc.ClientConn 实例，</span></span><br><span class="line"><span class="comment">// 随后可在业务代码中使用 *grpc.ClientConn 实例构造桩代码中生成的 grpcServiceClient 并发起 RPC 调用。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Dial</span><span class="params">(callerService, calleeService <span class="keyword">string</span>, dialOpts ...grpc.DialOption)</span> <span class="params">(*grpc.ClientConn, error)</span></span> &#123;</span><br><span class="line">  <span class="comment">// 根据 callerService 和 calleeService 构造对应的 URI</span></span><br><span class="line">  URI := ns.URI(callerService, calleeService)</span><br><span class="line"></span><br><span class="line">  ctx, cancel := context.WithTimeout(context.Background(), <span class="number">5</span>*time.Second)</span><br><span class="line">  <span class="keyword">defer</span> cancel()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 设置拨号配置</span></span><br><span class="line">  opts := []grpc.DialOption&#123;</span><br><span class="line">    grpc.WithBlock(),</span><br><span class="line">    grpc.WithInsecure(),</span><br><span class="line">  &#125;</span><br><span class="line">  dialOpts = <span class="built_in">append</span>(dialOpts, dialOpts...)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用 grpc.DialContext() 方法拨号</span></span><br><span class="line">  conn, err := grpc.DialContext(</span><br><span class="line">    ctx,</span><br><span class="line">    URI,</span><br><span class="line">    opts...,</span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    logz.Warn(<span class="string">"did not connect"</span>, logz.Any(<span class="string">"target"</span>, URI), logz.E(err))</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> conn, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="gRPC-resolver-原理"><a href="#gRPC-resolver-原理" class="headerlink" title="gRPC resolver 原理"></a>gRPC resolver 原理</h2><p>看完上面的实现有些同学可能仍然不太明白 Name Resolution 流程，我们结合 grpc resolver 源码来做简单分析。</p>
+<p>上一节在自定义包 <code>ns</code> 中定义了两个 go 文件， <code>resolver.go</code> 和 <code>resolver_builder.go</code>。</p>
+<ul>
+<li>前者是整个功能最核心的代码，通过自定义 <code>nsResolver</code> 将服务名解析成对应实例。</li>
+<li>后者是采用 Builder 模式在包初始化时创建并注册构造 <code>nsResover</code> 的 <code>nsResolverBuilder</code> 实例。当客户端通过 <code>Dial</code> 方法对指定服务进行拨号时，grpc resolver 查找注册的 Builder 实例调用其 <code>Build()</code> 方法构建自定义 <code>nsResolver</code>。</li>
+</ul>
+<p>我们试着从 grpc 源码出发，从客户端拨号开始直到发起 RPC 调用来了解 gRPC Name Resolution 流程。</p>
+<p>假设我们有如下 <code>demo.pb</code> 文件：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package demo;</span><br><span class="line"></span><br><span class="line">service DemoService &#123;</span><br><span class="line">  rpc SayHi(HiRequest) returns (HiResponse);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HiRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HiResponse &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成的桩代码 <code>demo.pb.go</code> 可能如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">type</span> DemoServiceClient <span class="keyword">interface</span> &#123;</span><br><span class="line">  SayHiOK(ctx context.Context, in *HiRequest, opts ...grpc.CallOption) (*HiResponse, error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> demoServiceClient <span class="keyword">struct</span> &#123;</span><br><span class="line">  cc *grpc.ClientConn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NewDemoServiceClient 业务代码中此方法来构造 *demoServiceClient 实例</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewDemoServiceClient</span><span class="params">(cc *grpc.ClientConn)</span> <span class="title">DemoServiceClient</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &amp;demoServiceClient&#123;cc&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *demoServiceClient)</span> <span class="title">SayHiOK</span><span class="params">(ctx context.Context, in *HiRequest, opts ...grpc.CallOption)</span> <span class="params">(*HiResponse, error)</span></span> &#123;</span><br><span class="line">  out := <span class="built_in">new</span>(HiResponse)</span><br><span class="line">  err := c.cc.Invoke(ctx, <span class="string">"/proto.DemoService/SayHiOK"</span>, in, out, opts...)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> out, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>客户端业务代码中构造 <code>*grpc.ClientConn</code> 再发起 RPC 调用代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"mypkg/internal/ns"</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 使用上节中封装的 ns.Dial 方法构造 *grpc.ClientConn</span></span><br><span class="line">conn, _ := ns.Dial(<span class="string">"my-caller-service"</span>, <span class="string">"my-callee-service"</span>)</span><br><span class="line"><span class="comment">// 构造 *demoServiceClient</span></span><br><span class="line">cli := demo.NewDemoServiceClient(conn)</span><br><span class="line"><span class="comment">// 使用 *demoServiceClient 发起 RPC 调用</span></span><br><span class="line">res, _ := cli.SayHiOK(ctx, &amp;proto.HiRequest&#123;Name: <span class="string">"world"</span>&#125;)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>业务代码 <code>import &quot;mypkg/internal/ns&quot;</code> 包后，在 <code>ns/resolver_builder.go</code> 的 init 阶段会通过 <code>Register()</code> 方法将  <code>nsResolverBuilder</code> 注册到 grpc 内部的一个全局 map 中：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// m 定义为一个全局 map，用于存放 [resolver 协议名 -&gt; resolverBuilder] 键值对</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]Builder)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Register 方法将指定 [resolver 协议名 -&gt; resolverBuilder] 键值对存入 map</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Register</span><span class="params">(b Builder)</span></span> &#123;</span><br><span class="line">  m[b.Scheme()] = b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get 方法根据传入的 resolver 协议名返回对应的 resolverBuilder</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Get</span><span class="params">(scheme <span class="keyword">string</span>)</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">  <span class="keyword">if</span> b, ok := m[scheme]; ok &#123;</span><br><span class="line">    <span class="keyword">return</span> b</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ns.Dial()</code> 方法使用 callerService 和 calleeService 构造服务 URI，并使用此 URI 作为参数调用 <code>grpc.DialContext()</code> 方法，来构造 <code>*grpc.ClientConn</code> 实例。</p>
+<p><code>grpc.DialContext()</code> 方法接收三个参数：ctx、target、opts，</p>
+<p>target：就是根据我们自定义的协议名、callerService、CalleeService 生成的 URI，比如本例中 target 参数值为 <code>ns://my-caller-service:@my-callee-service</code>，其中 <code>ns</code> 为协议名。grpc 可通过协议名查表来获取对应的 resolverBuilder。<br>opts：是一个变长参数，表示拨号配置选项。</p>
+<p><code>grpc.DialContext()</code> 内部逻辑比较复杂，我们挑重点讲：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DialContext</span><span class="params">(ctx context.Context, target <span class="keyword">string</span>, opts ...DialOption)</span> <span class="params">(conn *ClientConn, err error)</span></span> &#123;</span><br><span class="line">  <span class="comment">// 构造 ClientConn 实例</span></span><br><span class="line">  cc := &amp;ClientConn&#123;</span><br><span class="line">    target:            target,</span><br><span class="line">    csMgr:             &amp;connectivityStateManager&#123;&#125;,</span><br><span class="line">    conns:             <span class="built_in">make</span>(<span class="keyword">map</span>[*addrConn]<span class="keyword">struct</span>&#123;&#125;),</span><br><span class="line">    dopts:             defaultDialOptions(),</span><br><span class="line">    blockingpicker:    newPickerWrapper(),</span><br><span class="line">    czData:            <span class="built_in">new</span>(channelzData),</span><br><span class="line">    firstResolveEvent: grpcsync.NewEvent(),</span><br><span class="line">  &#125;</span><br><span class="line">  cc.retryThrottler.Store((*retryThrottler)(<span class="literal">nil</span>))</span><br><span class="line">  cc.ctx, cc.cancel = context.WithCancel(context.Background())</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> _, opt := <span class="keyword">range</span> opts &#123;</span><br><span class="line">    opt.apply(&amp;cc.dopts)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果用户指定了 timeout 超时配置，那么初始化一个带超时的 ctx</span></span><br><span class="line">  <span class="comment">// 如果 defer 阶段已超时，则抛出 j 错误</span></span><br><span class="line">  <span class="keyword">if</span> cc.dopts.timeout &gt; <span class="number">0</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> cancel context.CancelFunc</span><br><span class="line">    ctx, cancel = context.WithTimeout(ctx, cc.dopts.timeout)</span><br><span class="line">    <span class="keyword">defer</span> cancel()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">      conn, err = <span class="literal">nil</span>, ctx.Err()</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;()</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Name Resolver 核心逻辑，初始化 resolverBuilder，代码中首先会判断下用户是否指定 resolverBuilder</span></span><br><span class="line">  <span class="comment">// - 如果有指定 resolverBuilder，则直接使用此 resolverBuilder。</span></span><br><span class="line">  <span class="comment">// - 如果用户没有指定 resolverBuilder，那么 grpc 做如下操作：</span></span><br><span class="line">  <span class="comment">//    - 通过 parseTarget 方法解析用户传入的 target，本例中即 `ns://my-caller-service:@my-callee-service`，获取 Scheme（协议名）、authority（包含 callerService、calleeService）。</span></span><br><span class="line">  <span class="comment">//    - 查询指定协议对应的 resolverBuilder。</span></span><br><span class="line">  <span class="keyword">if</span> cc.dopts.resolverBuilder == <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="comment">// 解析用户传入的 target</span></span><br><span class="line">    cc.parsedTarget = parseTarget(cc.target)</span><br><span class="line">    <span class="comment">// 通过协议名查表获取对应的 resolverBuilder</span></span><br><span class="line">    cc.dopts.resolverBuilder = resolver.Get(cc.parsedTarget.Scheme)</span><br><span class="line">    <span class="comment">// 如果表中没查到对应的 resolverBuilder，则使用默认协议查询对应的 resolverBuilder</span></span><br><span class="line">    <span class="comment">// 默认协议为 `passthrough`，它会从用户解析的 target 中直接读取 endpoint 地址</span></span><br><span class="line">    <span class="keyword">if</span> cc.dopts.resolverBuilder == <span class="literal">nil</span> &#123;</span><br><span class="line">      cc.parsedTarget = resolver.Target&#123;</span><br><span class="line">        Scheme:   resolver.GetDefaultScheme(),</span><br><span class="line">        Endpoint: target,</span><br><span class="line">      &#125;</span><br><span class="line">      cc.dopts.resolverBuilder = resolver.Get(cc.parsedTarget.Scheme)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cc.parsedTarget = resolver.Target&#123;Endpoint: target&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用上面初始化的 resolverBuilder 构建 resolver</span></span><br><span class="line">  <span class="comment">// 初始化 resolverWrapper</span></span><br><span class="line">  rWrapper, err := newCCResolverWrapper(cc)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"failed to build resolver: %v"</span>, err)</span><br><span class="line">  &#125;</span><br><span class="line">  cc.mu.Lock()</span><br><span class="line">  cc.resolverWrapper = rWrapper</span><br><span class="line">  cc.mu.Unlock()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果客户端配置了 WithBlock option，则会轮询 ClientConn 状态，如果 ClientConn 就绪，则返回 ClientConn。</span></span><br><span class="line">  <span class="comment">// 如果直到 ctx 超时或被 Cancel ClientConn 依然未就绪，则抛出 ctx.Err() 错误。</span></span><br><span class="line">  <span class="keyword">if</span> cc.dopts.block &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">      s := cc.GetState()</span><br><span class="line">      <span class="comment">// 1. 如果 ClientConn 状态为 Ready 则返回此 ClientConn</span></span><br><span class="line">      <span class="comment">// 2. 如果 ClientConn 状态并非 Ready，且用户配置了 FailOnNonTempDialError，当前 ClientConn 状态为 TransientFailure，且 lbPicker 尝试和服务端实例建立连接时产生错误。根据错误性质做如下处理：</span></span><br><span class="line">      <span class="comment">//    2.1. 如果此错误是非临时性的错误，则抛出此错误</span></span><br><span class="line">      <span class="comment">//    2.2. 如果此错误是临时性的错误，则继续轮询 ClientConn 状态，直至 ctx 超时或被外部 Cancel</span></span><br><span class="line">      <span class="keyword">if</span> s == connectivity.Ready &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> cc.dopts.copts.FailOnNonTempDialError &amp;&amp; s == connectivity.TransientFailure &#123;</span><br><span class="line">        <span class="keyword">if</span> err = cc.blockingpicker.connectionError(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">          terr, ok := err.(<span class="keyword">interface</span> &#123;</span><br><span class="line">            Temporary() <span class="keyword">bool</span></span><br><span class="line">          &#125;)</span><br><span class="line">          <span class="keyword">if</span> ok &amp;&amp; !terr.Temporary() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> !cc.WaitForStateChange(ctx, s) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, ctx.Err()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> cc, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再看下 <code>newCCResolverWrapper()</code> 方法内部实现：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newCCResolverWrapper</span><span class="params">(cc *ClientConn)</span> <span class="params">(*ccResolverWrapper, error)</span></span> &#123;</span><br><span class="line">  ...</span><br><span class="line">  ccr := &amp;ccResolverWrapper&#123;</span><br><span class="line">    cc:     cc,</span><br><span class="line">    addrCh: <span class="built_in">make</span>(<span class="keyword">chan</span> []resolver.Address, <span class="number">1</span>),</span><br><span class="line">    scCh:   <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>, <span class="number">1</span>),</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> err error</span><br><span class="line">  <span class="comment">// rb.Build() 调用指定 resolveBuilder 的 Build 方法，本例中会执行我们定义的 nsResolverBuilder.Builder() 方法</span></span><br><span class="line">  ccr.resolver, err = rb.Build(cc.parsedTarget, ccr, resolver.BuildOption&#123;DisableServiceConfig: cc.dopts.disableServiceConfig&#125;)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ccr, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>前面章节中在 <code>ns/resolver_builder.go</code> 中已经给出了 <code>nsResolverBuilder</code> 实现，我们再看下 <code>nsResolverBuilder.Builder()</code> 方法内部逻辑：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ns</span><br><span class="line"></span><br><span class="line"><span class="comment">// init 将定义好的 NS Builder 注册到 resolver 包中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">  resolver.Register(NewBuilder())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*nsResolverBuilder)</span> <span class="title">Build</span><span class="params">(target resolver.Target, cc resolver.ClientConn, opts resolver.BuildOption)</span> <span class="params">(resolver.Resolver, error)</span></span> &#123;</span><br><span class="line">  ctx, cancel := context.WithCancel(context.Background())</span><br><span class="line">  r := &amp;nsResolver&#123;</span><br><span class="line">    target: target,</span><br><span class="line">    cc:     cc,</span><br><span class="line">    ctx:    ctx,</span><br><span class="line">    cancel: cancel,</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 启动协程，轮询并更新指定 CalleeService 服务的实例变化</span></span><br><span class="line">  <span class="keyword">go</span> r.watcher()</span><br><span class="line">  <span class="keyword">return</span> r, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>前面章节中在  <code>ns/resolver.go</code> 中给出了 <code>nsResolver</code> 实现，我们再看下 <code>nsResolver.watch()</code> 方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ns</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="comment">// watcher 轮询并更新指定 CalleeService 服务的实例变化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">watcher</span><span class="params">()</span></span> &#123;</span><br><span class="line">  r.updateCC()</span><br><span class="line">  ticker := time.NewTicker(syncNSInterval)</span><br><span class="line">  <span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="comment">// 当* nsResolver Close 时退出</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-r.ctx.Done():</span><br><span class="line">      ticker.Stop()</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-ticker.C:</span><br><span class="line">      <span class="comment">// 调用* nsResolver.updagteCC() 方法，更新实例地址</span></span><br><span class="line">      r.updateCC()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// updateCC 更新 resolver.Resolver.ClientConn 配置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *nsResolver)</span> <span class="title">updateCC</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">// 从 NS 服务获取指定 target 的实例列表</span></span><br><span class="line">  instances, err := r.getInstances(r.target)</span><br><span class="line">  <span class="comment">// 如果获取实例列表失败，或者实例列表为空，则不更新 resolver 中实例列表</span></span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> || <span class="built_in">len</span>(instances.CalleeIns) == <span class="number">0</span> &#123;</span><br><span class="line">    logz.Warn(<span class="string">"[mis] error retrieving instances from Mis"</span>, logz.Any(<span class="string">"target"</span>, r.target), logz.Error(err))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 组装实例列表 []resolver.Address</span></span><br><span class="line">  <span class="comment">// resolver.Address 结构体表示 grpc server 端实例地址</span></span><br><span class="line">  <span class="keyword">var</span> newAddrs []resolver.Address</span><br><span class="line">  <span class="keyword">for</span> k := <span class="keyword">range</span> instances.calleeIns &#123;</span><br><span class="line">    newAddrs = <span class="built_in">append</span>(newAddrs, resolver.Address&#123;</span><br><span class="line">      Addr:     instances.CalleeIns[k],</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 更新实例列表</span></span><br><span class="line">  <span class="comment">// grpc 底层 LB 组件对每个服务端实例创建一个 subConnection。并根据设定的 LB 策略，选择合适的 subConnection 处理某次 RPC 请求。</span></span><br><span class="line">  <span class="comment">// 此处代码比较复杂，后续在 LB 相关原理文章中再做概述。</span></span><br><span class="line">  r.cc.UpdateState(resolver.State&#123;Addresses: newAddrs&#125;)</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="ns-workflow.png" alt="ns-workflow"></p>
+<p>文章末尾我们对自定义 grpc Resolver 做个总结，整个工作流大概如下所示：</p>
+<ul>
+<li><p>客户端启动时，引入自定义的 resolver 包（比如本例中我们自定义的 <code>ns</code> 包）</p>
+<ul>
+<li>引入 <code>ns</code> 包，在 <code>init()</code> 阶段，构造自定义的 resolveBuilder，并将其注册到 grpc 内部的 resolveBuilder 表中（其实是一个全局 map，key 为协议名，比如 <code>ns</code>；value 为构造的 resolveBuilder，比如 <code>nsResolverBuilder</code>）。</li>
+</ul>
+</li>
+<li><p>客户端启动时通过自定义 <code>Dail()</code> 方法构造 grpc.ClientConn 单例</p>
+<ul>
+<li><code>Dial()</code> 方法接收主调服务名和被调服务名，并根据自定义的协议名，基于这两个参数构造服务的 URI</li>
+<li><code>Dial()</code> 方法内部使用构造的 URI，调用 <code>grpc.DialContext()</code> 方法对指定服务进行拨号<ul>
+<li><code>grpc.DialContext()</code> 方法内部解析 URI，分析协议类型，并从 resolveBuilder 表中查找协议对应的 resolverBuilder。比如本例中我们定义的 URI 协议类型为 <code>ns</code>，对应的 resolverBuilder 为  <code>nsResolverBuilder</code></li>
+<li>找到指定的 resolveBuilder 后，调用 resolveBuilder 的 <code>Build()</code> 方法，构建自定义 resolver，同时开启协程，通过此 resolver 更新被调服务实例列表。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>grpc 底层 LB 库对每个实例均创建一个 subConnection，最终根据相应的 LB 策略，选择合适的 subConnection 处理某次 RPC 请求。</p>
+</li>
+</ul>
+<p>至此为止，我们基本上捋清了 gRPC Name Resolver 大概原理。由于篇幅原因，底层的很多细节没有介绍到，比如 grpc 是如何管理服务端的多个实例连接的，服务端有多个实例时负载均衡是如何实现的。下篇文章将给大家介绍下 gRPC LB 原理以及如何自定义动态的 LB 策略来实现流量灰度功能。</p>
+<h2 id="下文预告"><a href="#下文预告" class="headerlink" title="下文预告"></a>下文预告</h2><p>下篇文章会给大家介绍下 gRPC Load Balancing 原理，及如何实现动态更改 Load Balancing 策略，并通过 Weighted Round Robin 策略实现流量灰度。</p>
+<hr>
+<p><strong>作者</strong></p>
+<p>郑伟，小米信息技术部架构组</p>
+<p><strong>招聘</strong></p>
+<p>信息部是小米公司整体系统规划建设的核心部门，支撑公司国内外的线上线下销售服务体系、供应链体系、ERP 体系、内网 OA 体系、数据决策体系等精细化管控的执行落地工作，服务小米内部所有的业务部门以及 40 家生态链公司。</p>
+<p>同时部门承担大数据基础平台研发和微服务体系建设落，语言涉及 Java、Go，长年虚位以待对大数据处理、大型电商后端系统、微服务落地有深入理解和实践的各路英雄。</p>
+<p>欢迎投递简历：jin.zhang(a)xiaomi.com（武汉）</p>
+<p><strong>投稿</strong></p>
+<p>投稿请联系 zhengwei6(a)xiaomi.com</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#微服务" >
+    <span class="tag-code">微服务</span>
+  </a>
+
+  <a href="/tags#Golang" >
+    <span class="tag-code">Golang</span>
+  </a>
+
+  <a href="/tags#gRPC" >
+    <span class="tag-code">gRPC</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2019/12/30/grpc-deadline/">
+        <span class="nav-arrow">← </span>
+        
+          gRPC 系列——grpc 超时传递原理
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2020/01/02/distributed-transaction/">
+        
+          分布式事务，这一篇就够了
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#gRPC-Name-Resolver-原理及实践"><span class="toc-nav-text">gRPC Name Resolver 原理及实践</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现自定义-Name-Resolver"><span class="toc-nav-text">实现自定义 Name Resolver</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#定义-nsResolver"><span class="toc-nav-text">定义 nsResolver</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#定义-nsResolverBuilder"><span class="toc-nav-text">定义 nsResolverBuilder</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#封装-gRPC-Dial-方法"><span class="toc-nav-text">封装 gRPC.Dial() 方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#gRPC-resolver-原理"><span class="toc-nav-text">gRPC resolver 原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#下文预告"><span class="toc-nav-text">下文预告</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://xiaomi-info.github.com/2019/12/31/grpc-custom-ns/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "Xiaomi-Info";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "gRPC Name Resolver 原理及实践",
+        owner: "Xiaomi-Info",
+        repo: "xiaomi-info.github.io",
+        oauth: {
+          client_id: "c93dd7ac9d2e687ef016",
+          client_secret: "c5822d75521e6843d4ec30db61bd2ee861cb7c3e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<footer class="app-footer">
+  <p class="copyright">
+    &copy; 2020 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+  <p id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次 &nbsp;&nbsp;
+  </p>
+  <p id="busuanzi_container_page_pv">
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
