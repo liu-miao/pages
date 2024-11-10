@@ -15,22 +15,46 @@ export default defineUserConfig({
 // 导航栏
     navbar: [
       '/',
+      // {
+      //   text: 'Article',
+      //   link: '/article/',
+      // },
+      // {
+      //   text: 'Category',
+      //   link: '/category/',
+      // },
+      // {
+      //   text: 'Tag',
+      //   link: '/tag/',
+      // },
+      // {
+      //   text: 'Timeline',
+      //   link: '/timeline/',
+      // },
       {
-        text: 'Article',
-        link: '/article/',
+        text: 'vuepress搭建',
+        prefix: '/vuepress搭建/',
+        children: [{
+          text: 'wordpress',
+          link: 'wordpress.md',
+        },],
       },
       {
-        text: 'Category',
-        link: '/category/',
-      },
-      {
-        text: 'Tag',
-        link: '/tag/',
-      },
-      {
-        text: 'Timeline',
-        link: '/timeline/',
-      },
+        text: '关于我',
+        // prefix: '/group/',
+        children: [
+          {
+            text: '我的网站',
+            children: [
+              // 一个外部链接
+              {
+                text: 'ddbro',
+                link: 'https://ddbro.com',
+              },
+            ],
+          },
+        ]
+      }
     ],
   }),
 

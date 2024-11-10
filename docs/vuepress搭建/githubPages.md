@@ -1,3 +1,11 @@
+---
+
+lang: zh-CN 
+title: vuepress发布到github 
+description: 页面的描述
+
+---
+
 ## 创建仓库
 
 用户名.github.io
