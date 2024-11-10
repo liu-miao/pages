@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-node_modules
-=======
+
 # Logs
 logs
 *.log
@@ -25,4 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
->>>>>>> edcf11d (init)
+
+
+

@@ -11,7 +11,7 @@ export default defineUserConfig({
 
   theme: defaultTheme({
     logo: 'https://vuejs.press/images/hero.png',
-
+// 导航栏
     navbar: [
       '/',
       {
@@ -29,6 +29,10 @@ export default defineUserConfig({
       {
         text: 'Timeline',
         link: '/timeline/',
+      },
+      {
+        text: '前端',
+        link: '/before/',
       },
     ],
   }),
@@ -119,7 +123,7 @@ export default defineUserConfig({
           },
         },
         {
-          key: 'timeline',
+          key: 'before',
           // Only article with date should be added to timeline
           filter: (page) => page.frontmatter.date instanceof Date,
           // Sort pages with time
@@ -132,6 +136,7 @@ export default defineUserConfig({
             sidebar: false,
           }),
         },
+
       ],
       hotReload: true,
     }),
