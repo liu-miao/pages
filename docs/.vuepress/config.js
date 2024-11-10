@@ -30,10 +30,6 @@ export default defineUserConfig({
         text: 'Timeline',
         link: '/timeline/',
       },
-      {
-        text: '前端',
-        link: '/before/',
-      },
     ],
   }),
 
@@ -121,21 +117,7 @@ export default defineUserConfig({
               new Date(pageA.frontmatter.date).getTime()
             )
           },
-        },
-        {
-          key: 'before',
-          // Only article with date should be added to timeline
-          filter: (page) => page.frontmatter.date instanceof Date,
-          // Sort pages with time
-          sorter: (pageA, pageB) =>
-            new Date(pageB.frontmatter.date).getTime() -
-            new Date(pageA.frontmatter.date).getTime(),
-          layout: 'Timeline',
-          frontmatter: () => ({
-            title: 'Timeline',
-            sidebar: false,
-          }),
-        },
+        }
 
       ],
       hotReload: true,
