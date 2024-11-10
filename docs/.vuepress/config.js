@@ -35,8 +35,8 @@ export default defineUserConfig({
         text: 'vuepress搭建',
         prefix: '/vuepress搭建/',
         children: [{
-          text: 'wordpress',
-          link: 'wordpress.md',
+          text: 'vuepress',
+          link: 'vuepress.md',
         },],
       },
       {
