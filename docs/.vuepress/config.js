@@ -6,8 +6,8 @@ import { viteBundler } from '@vuepress/bundler-vite'
 export default defineUserConfig({
   lang: 'en-US',
 
-  title: '知识星球',
-  
+  title: '学无止尽',
+
   description: 'c++,java,rust,前端',
 
   theme: defaultTheme({
