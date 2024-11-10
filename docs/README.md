@@ -33,7 +33,7 @@ features:
 footer: MIT Licensed | Copyright © 2018-present VuePress Community
 ---
 
-# 以下是首页的主体内容
+<!-- 以下是首页的主体内容 -->
 This is the content of home page. Check [Home Page Docs][default-theme-home] for more details.
 
 [default-theme-home]: https://ddbro.com
