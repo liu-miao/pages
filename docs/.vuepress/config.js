@@ -11,7 +11,7 @@ export default defineUserConfig({
 
   title: '学无止尽',
 
-  description: '包含java、c++、rust、前端、python、go、DBA、运维、嵌入式、AI、大数据、云计算、区块链等技术栈!内容持续更新中,尽情期待...',
+  description: 'c++、java、rust、前端、python、go、DBA、运维、嵌入式、AI、大数据、云计算、区块链等！内容持续更新中,尽情期待...',
 
   theme: defaultTheme({
     logo: 'https://vuejs.press/images/hero.png',
