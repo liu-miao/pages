@@ -2,44 +2,9 @@ import { blogPlugin } from '@vuepress/plugin-blog'
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
-import { getDirctoryFiles } from './utils/autoNavbar'
+import { generateNavbar } from './utils/autoNavbar'
 import path from 'path'
 import fs from 'fs'
-
-// 自动扫描文档目录生成导航栏配置
-function generateNavbar() {
-  const docsPath = path.resolve(__dirname, '../')
-  const navItems = []
-  
-  // 读取 docs 目录下的所有文件夹
-  const directories = fs.readdirSync(docsPath).filter(file => {
-    const stat = fs.statSync(path.join(docsPath, file))
-    return stat.isDirectory() && !file.startsWith('.') // 排除.vuepress等隐藏目录
-  })
-
-  // 为每个文件夹生成导航项
-  directories.forEach(dir => {
-    const files = fs.readdirSync(path.join(docsPath, dir))
-      .filter(file => file.endsWith('.md'))
-      .map(file => {
-        // 移除.md后缀
-        const name = file.replace('.md', '')
-        return {
-          text: name,
-          link: `/${dir}/${name}.html`
-        }
-      })
-
-    if (files.length > 0) {
-      navItems.push({
-        text: dir,
-        children: files
-      })
-    }
-  })
-
-  return navItems
-}
 
 export default defineUserConfig({
   lang: 'en-US',
@@ -50,8 +15,7 @@ export default defineUserConfig({
 
   theme: defaultTheme({
     logo: 'https://vuejs.press/images/hero.png',
-    // 自动生成的导航栏
-    navbar: generateNavbar(),
+    navbar: generateNavbar(path.resolve(__dirname, '../')),
   }),
 
   plugins: [
