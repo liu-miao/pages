@@ -2,60 +2,56 @@ import { blogPlugin } from '@vuepress/plugin-blog'
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
+import { getDirctoryFiles } from './utils/autoNavbar'
+import path from 'path'
+import fs from 'fs'
+
+// 自动扫描文档目录生成导航栏配置
+function generateNavbar() {
+  const docsPath = path.resolve(__dirname, '../')
+  const navItems = []
+  
+  // 读取 docs 目录下的所有文件夹
+  const directories = fs.readdirSync(docsPath).filter(file => {
+    const stat = fs.statSync(path.join(docsPath, file))
+    return stat.isDirectory() && !file.startsWith('.') // 排除.vuepress等隐藏目录
+  })
+
+  // 为每个文件夹生成导航项
+  directories.forEach(dir => {
+    const files = fs.readdirSync(path.join(docsPath, dir))
+      .filter(file => file.endsWith('.md'))
+      .map(file => {
+        // 移除.md后缀
+        const name = file.replace('.md', '')
+        return {
+          text: name,
+          link: `/${dir}/${name}.html`
+        }
+      })
+
+    if (files.length > 0) {
+      navItems.push({
+        text: dir,
+        children: files
+      })
+    }
+  })
+
+  return navItems
+}
 
 export default defineUserConfig({
   lang: 'en-US',
 
   title: '学无止尽',
 
-  description: 'c++,java,rust,前端',
+  description: '包含java、c++、rust、前端、python、go、DBA、运维、嵌入式、AI、大数据、云计算、区块链等技术栈!内容持续更新中,尽情期待...',
 
   theme: defaultTheme({
     logo: 'https://vuejs.press/images/hero.png',
-// 导航栏
-    navbar: [
-      '/',
-      // {
-      //   text: 'Article',
-      //   link: '/article/',
-      // },
-      // {
-      //   text: 'Category',
-      //   link: '/category/',
-      // },
-      // {
-      //   text: 'Tag',
-      //   link: '/tag/',
-      // },
-      // {
-      //   text: 'Timeline',
-      //   link: '/timeline/',
-      // },
-      {
-        text: 'vuepress搭建',
-        prefix: '/vuepress搭建/',
-        children: [{
-          text: 'vuepress',
-          link: 'vuepress.md',
-        },],
-      },
-      {
-        text: '关于我',
-        // prefix: '/group/',
-        children: [
-          {
-            text: '我的网站',
-            children: [
-              // 一个外部链接
-              {
-                text: 'ddbro',
-                link: 'https://ddbro.com',
-              },
-            ],
-          },
-        ]
-      }
-    ],
+    // 自动生成的导航栏
+    navbar: generateNavbar(),
   }),
 
   plugins: [
