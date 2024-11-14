@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.18" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme')
+      const systemDarkMode =
+        'matchMedia' in window
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
+
+      if (userMode === 'light') {
+        document.documentElement.dataset.theme = 'light'
+      } else if (userMode === 'dark' || systemDarkMode) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <title>学无止尽</title><meta name="description" content="包含java、c++、rust、前端、python、go、DBA、运维、嵌入式、AI、大数据、云计算、区块链等技术栈!内容持续更新中,尽情期待...">
+    <link rel="preload" href="/assets/style-BGiMcUT_.css" as="style"><link rel="stylesheet" href="/assets/style-BGiMcUT_.css">
+    <link rel="modulepreload" href="/assets/app-B5Cr9W1e.js"><link rel="modulepreload" href="/assets/elementPlus滚动查看更多.html-DhRKTxgE.js">
+    <link rel="prefetch" href="/assets/index.html-BELXtDyH.js" as="script"><link rel="prefetch" href="/assets/get-started.html-CxS3XY3N.js" as="script"><link rel="prefetch" href="/assets/git回滚.html-BYU3ewZJ.js" as="script"><link rel="prefetch" href="/assets/主题配置.html-DemlBzVN.js" as="script"><link rel="prefetch" href="/assets/element 固定表头滚动条效果.html-jSSm-QiD.js" as="script"><link rel="prefetch" href="/assets/elementplus.html-C81tZEQ-.js" as="script"><link rel="prefetch" href="/assets/数据校验.html-CR5IfGad.js" as="script"><link rel="prefetch" href="/assets/archive1.html--Cy5uOO4.js" as="script"><link rel="prefetch" href="/assets/archive2.html-h_ysmN5p.js" as="script"><link rel="prefetch" href="/assets/article1.html-Cjz9Mkes.js" as="script"><link rel="prefetch" href="/assets/article10.html-Dww7idvL.js" as="script"><link rel="prefetch" href="/assets/article11.html-BnepLhV2.js" as="script"><link rel="prefetch" href="/assets/article12.html-Bx233-ps.js" as="script"><link rel="prefetch" href="/assets/article2.html-BfltoTpd.js" as="script"><link rel="prefetch" href="/assets/article3.html-D8JgllZ8.js" as="script"><link rel="prefetch" href="/assets/article4.html-BZN7lcB1.js" as="script"><link rel="prefetch" href="/assets/article5.html-BtH2UayQ.js" as="script"><link rel="prefetch" href="/assets/article6.html-CjRTm6DF.js" as="script"><link rel="prefetch" href="/assets/article7.html-DuTs1dQK.js" as="script"><link rel="prefetch" href="/assets/article8.html-DhQGNlw2.js" as="script"><link rel="prefetch" href="/assets/article9.html-C0cANdua.js" as="script"><link rel="prefetch" href="/assets/sticky.html-BEK2GsCS.js" as="script"><link rel="prefetch" href="/assets/sticky2.html-DVKhQ_J5.js" as="script"><link rel="prefetch" href="/assets/pakege.json文件.html-B83Bh07m.js" as="script"><link rel="prefetch" href="/assets/ref与reactive.html-C33memps.js" as="script"><link rel="prefetch" href="/assets/vue3.html-B61hIB1U.js" as="script"><link rel="prefetch" href="/assets/数据劫持.html-C8z99aAR.js" as="script"><link rel="prefetch" href="/assets/文件预览.html-XYCWeQoD.js" as="script"><link rel="prefetch" href="/assets/父子传递.html-YDf8apc7.js" as="script"><link rel="prefetch" href="/assets/练习.html-BIePF8Fa.js" as="script"><link rel="prefetch" href="/assets/githubPages.html-CihEJah_.js" as="script"><link rel="prefetch" href="/assets/vuepress.html-BrRdFDT1.js" as="script"><link rel="prefetch" href="/assets/404.html-2anWG92v.js" as="script"><link rel="prefetch" href="/assets/index.html-DvKQZCKs.js" as="script"><link rel="prefetch" href="/assets/index.html-Iu7lID2o.js" as="script"><link rel="prefetch" href="/assets/index.html-3t9nBN1y.js" as="script"><link rel="prefetch" href="/assets/index.html-B0e7BtvL.js" as="script"><link rel="prefetch" href="/assets/index.html-gebPArR-.js" as="script"><link rel="prefetch" href="/assets/index.html-BsHZQG_v.js" as="script"><link rel="prefetch" href="/assets/index.html-yl5UF7vt.js" as="script"><link rel="prefetch" href="/assets/index.html-C6R7kQsN.js" as="script"><link rel="prefetch" href="/assets/index.html-xc0fRSYV.js" as="script"><link rel="prefetch" href="/assets/index.html-97iRnel4.js" as="script"><link rel="prefetch" href="/assets/index.html-CJx9s1T0.js" as="script"><link rel="prefetch" href="/assets/index.html-ViJ_F6ZK.js" as="script"><link rel="prefetch" href="/assets/index.html-CFasoCAB.js" as="script"><link rel="prefetch" href="/assets/index.html-8Aucb0UF.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="vp-theme-container external-link-icon" vp-container><!--[--><header class="vp-navbar" vp-navbar><div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a class="route-link" href="/"><img class="vp-site-logo" src="https://vuejs.press/images/hero.png" alt="学无止尽"><span class="vp-site-name vp-hide-mobile" aria-hidden="true">学无止尽</span></a></span><div class="vp-navbar-items-wrapper" style=""><!--[--><!--]--><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="css样式"><span class="title">css样式</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="css样式"><span class="title">css样式</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/css%E6%A0%B7%E5%BC%8F/element%20%E5%9B%BA%E5%AE%9A%E8%A1%A8%E5%A4%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%95%88%E6%9E%9C.html" aria-label="element 固定表头滚动条效果"><!---->element 固定表头滚动条效果<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link route-link-active auto-link" href="/css%E6%A0%B7%E5%BC%8F/elementPlus%E6%BB%9A%E5%8A%A8%E6%9F%A5%E7%9C%8B%E6%9B%B4%E5%A4%9A.html" aria-label="elementPlus滚动查看更多"><!---->elementPlus滚动查看更多<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/css%E6%A0%B7%E5%BC%8F/elementplus.html" aria-label="elementplus"><!---->elementplus<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="java"><span class="title">java</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="java"><span class="title">java</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/java/%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C.html" aria-label="数据校验"><!---->数据校验<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="posts"><span class="title">posts</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="posts"><span class="title">posts</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/archive1.html" aria-label="archive1"><!---->archive1<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/archive2.html" aria-label="archive2"><!---->archive2<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article1.html" aria-label="article1"><!---->article1<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article10.html" aria-label="article10"><!---->article10<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article11.html" aria-label="article11"><!---->article11<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article12.html" aria-label="article12"><!---->article12<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article2.html" aria-label="article2"><!---->article2<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article3.html" aria-label="article3"><!---->article3<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article4.html" aria-label="article4"><!---->article4<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article5.html" aria-label="article5"><!---->article5<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article6.html" aria-label="article6"><!---->article6<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article7.html" aria-label="article7"><!---->article7<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article8.html" aria-label="article8"><!---->article8<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article9.html" aria-label="article9"><!---->article9<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/sticky.html" aria-label="sticky"><!---->sticky<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/sticky2.html" aria-label="sticky2"><!---->sticky2<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="vue3"><span class="title">vue3</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="vue3"><span class="title">vue3</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/pakege.json%E6%96%87%E4%BB%B6.html" aria-label="pakege.json文件"><!---->pakege.json文件<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/ref%E4%B8%8Ereactive.html" aria-label="ref与reactive"><!---->ref与reactive<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/vue3.html" aria-label="vue3"><!---->vue3<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81.html" aria-label="数据劫持"><!---->数据劫持<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E6%96%87%E4%BB%B6%E9%A2%84%E8%A7%88.html" aria-label="文件预览"><!---->文件预览<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E7%88%B6%E5%AD%90%E4%BC%A0%E9%80%92.html" aria-label="父子传递"><!---->父子传递<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E7%BB%83%E4%B9%A0.html" aria-label="练习"><!---->练习<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="vuepress搭建"><span class="title">vuepress搭建</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="vuepress搭建"><span class="title">vuepress搭建</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vuepress%E6%90%AD%E5%BB%BA/githubPages.html" aria-label="githubPages"><!---->githubPages<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vuepress%E6%90%AD%E5%BB%BA/vuepress.html" aria-label="vuepress"><!---->vuepress<!----></a></li><!--]--></ul></div></div><!--]--></nav><!--[--><!--]--><button type="button" class="vp-toggle-color-mode-button" title="toggle color mode"><svg class="light-icon" viewbox="0 0 32 32" style=""><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg class="dark-icon" viewbox="0 0 32 32" style="display:none;"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><!----></div></header><!--]--><div class="vp-sidebar-mask"></div><!--[--><aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="css样式"><span class="title">css样式</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="css样式"><span class="title">css样式</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/css%E6%A0%B7%E5%BC%8F/element%20%E5%9B%BA%E5%AE%9A%E8%A1%A8%E5%A4%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%95%88%E6%9E%9C.html" aria-label="element 固定表头滚动条效果"><!---->element 固定表头滚动条效果<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link route-link-active auto-link" href="/css%E6%A0%B7%E5%BC%8F/elementPlus%E6%BB%9A%E5%8A%A8%E6%9F%A5%E7%9C%8B%E6%9B%B4%E5%A4%9A.html" aria-label="elementPlus滚动查看更多"><!---->elementPlus滚动查看更多<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/css%E6%A0%B7%E5%BC%8F/elementplus.html" aria-label="elementplus"><!---->elementplus<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="java"><span class="title">java</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="java"><span class="title">java</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/java/%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C.html" aria-label="数据校验"><!---->数据校验<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="posts"><span class="title">posts</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="posts"><span class="title">posts</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/archive1.html" aria-label="archive1"><!---->archive1<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/archive2.html" aria-label="archive2"><!---->archive2<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article1.html" aria-label="article1"><!---->article1<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article10.html" aria-label="article10"><!---->article10<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article11.html" aria-label="article11"><!---->article11<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article12.html" aria-label="article12"><!---->article12<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article2.html" aria-label="article2"><!---->article2<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article3.html" aria-label="article3"><!---->article3<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article4.html" aria-label="article4"><!---->article4<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article5.html" aria-label="article5"><!---->article5<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article6.html" aria-label="article6"><!---->article6<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article7.html" aria-label="article7"><!---->article7<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article8.html" aria-label="article8"><!---->article8<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/article9.html" aria-label="article9"><!---->article9<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/sticky.html" aria-label="sticky"><!---->sticky<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/posts/sticky2.html" aria-label="sticky2"><!---->sticky2<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="vue3"><span class="title">vue3</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="vue3"><span class="title">vue3</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/pakege.json%E6%96%87%E4%BB%B6.html" aria-label="pakege.json文件"><!---->pakege.json文件<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/ref%E4%B8%8Ereactive.html" aria-label="ref与reactive"><!---->ref与reactive<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/vue3.html" aria-label="vue3"><!---->vue3<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E6%95%B0%E6%8D%AE%E5%8A%AB%E6%8C%81.html" aria-label="数据劫持"><!---->数据劫持<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E6%96%87%E4%BB%B6%E9%A2%84%E8%A7%88.html" aria-label="文件预览"><!---->文件预览<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E7%88%B6%E5%AD%90%E4%BC%A0%E9%80%92.html" aria-label="父子传递"><!---->父子传递<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vue3/%E7%BB%83%E4%B9%A0.html" aria-label="练习"><!---->练习<!----></a></li><!--]--></ul></div></div><div class="vp-navbar-item"><div class="vp-navbar-dropdown-wrapper"><button class="vp-navbar-dropdown-title" type="button" aria-label="vuepress搭建"><span class="title">vuepress搭建</span><span class="arrow down"></span></button><button class="vp-navbar-dropdown-title-mobile" type="button" aria-label="vuepress搭建"><span class="title">vuepress搭建</span><span class="right arrow"></span></button><ul style="display:none;" class="vp-navbar-dropdown"><!--[--><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vuepress%E6%90%AD%E5%BB%BA/githubPages.html" aria-label="githubPages"><!---->githubPages<!----></a></li><li class="vp-navbar-dropdown-item"><a class="route-link auto-link" href="/vuepress%E6%90%AD%E5%BB%BA/vuepress.html" aria-label="vuepress"><!---->vuepress<!----></a></li><!--]--></ul></div></div><!--]--></nav><!--[--><!--]--><ul class="vp-sidebar-items"><!--[--><li><p tabindex="0" class="vp-sidebar-item vp-sidebar-heading"> <!----></p><!----></li><!--]--></ul><!--[--><!--]--></aside><!--]--><!--[--><main class="vp-page"><!--[--><!--]--><div class="theme-default-content" vp-content><!--[--><!--]--><div><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">&lt;template&gt;</span>
+<span class="line">  &lt;div class=&quot;app-container&quot;&gt;</span>
+<span class="line">    &lt;el-row&gt;</span>
+<span class="line">      &lt;el-col :span=&quot;24&quot; class=&quot;card-box&quot;&gt;</span>
+<span class="line">        &lt;el-card v-show=&quot;showSearch&quot; ref=&quot;queryRef&quot;&gt;</span>
+<span class="line">          &lt;el-form :model=&quot;queryParams&quot; ref=&quot;queryForm&quot; :inline=&quot;true&quot; v-show=&quot;showSearch&quot; label-width=&quot;68px&quot;&gt;</span>
+<span class="line">            &lt;el-form-item label=&quot;名称&quot; prop=&quot;name&quot;&gt;</span>
+<span class="line">              &lt;el-input v-model=&quot;queryParams.name&quot; placeholder=&quot;请输入名称&quot; clearable @keyup.enter=&quot;handleQuery&quot; /&gt;</span>
+<span class="line">            &lt;/el-form-item&gt;</span>
+<span class="line">            &lt;el-form-item label=&quot;类型&quot; prop=&quot;type&quot;&gt;</span>
+<span class="line">              &lt;el-input v-model=&quot;queryParams.type&quot; placeholder=&quot;请输入类型&quot; clearable @keyup.enter=&quot;handleQuery&quot; /&gt;</span>
+<span class="line">            &lt;/el-form-item&gt;</span>
+<span class="line">            &lt;el-form-item style=&quot;float: right&quot;&gt;</span>
+<span class="line">              &lt;el-button type=&quot;primary&quot; icon=&quot;Search&quot; @click=&quot;handleQuery&quot;&gt;搜索&lt;/el-button&gt;</span>
+<span class="line">              &lt;el-button icon=&quot;Refresh&quot; @click=&quot;resetQuery&quot;&gt;重置&lt;/el-button&gt;</span>
+<span class="line">            &lt;/el-form-item&gt;</span>
+<span class="line">          &lt;/el-form&gt;</span>
+<span class="line">        &lt;/el-card&gt;</span>
+<span class="line">      &lt;/el-col&gt;</span>
+<span class="line">      &lt;!-- 算法管理列表 --&gt;</span>
+<span class="line">      &lt;el-col :span=&quot;24&quot; class=&quot;card-box&quot;&gt;</span>
+<span class="line">        &lt;el-card&gt;</span>
+<span class="line">          &lt;el-row justify=&quot;space-between&quot;&gt;</span>
+<span class="line">            &lt;el-col :span=&quot;12&quot; class=&quot;card-box&quot;&gt;</span>
+<span class="line">              &lt;div slot=&quot;header&quot; class=&quot;clearfix&quot;&gt;</span>
+<span class="line">                &lt;span&gt;算法管理列表&lt;/span&gt;</span>
+<span class="line">              &lt;/div&gt;</span>
+<span class="line">            &lt;/el-col&gt;</span>
+<span class="line">            &lt;el-col :span=&quot;12&quot; class=&quot;card-box&quot;&gt;</span>
+<span class="line">              &lt;el-row :gutter=&quot;10&quot; class=&quot;mb8&quot; style=&quot;float: right&quot;&gt;</span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot;&gt;</span>
+<span class="line">                  &lt;el-button type=&quot;primary&quot; plain icon=&quot;Plus&quot; @click=&quot;handleAdd&quot;</span>
+<span class="line">                    v-hasPermi=&quot;[&#39;algorithm:algorithm:add&#39;]&quot;&gt;新增&lt;/el-button&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line"></span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot; v-if=&quot;!showCardData&quot;&gt;</span>
+<span class="line">                  &lt;el-button type=&quot;success&quot; plain icon=&quot;Edit&quot; @click=&quot;handleUpdate&quot; :disabled=&quot;single&quot;</span>
+<span class="line">                    v-hasPermi=&quot;[&#39;algorithm:algorithm:edit&#39;]&quot;&gt;修改&lt;/el-button&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line"></span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot; v-if=&quot;!showCardData&quot;&gt;</span>
+<span class="line">                  &lt;el-button type=&quot;danger&quot; plain icon=&quot;Delete&quot; @click=&quot;handleDelete&quot; :disabled=&quot;single&quot;</span>
+<span class="line">                    v-hasPermi=&quot;[&#39;algorithm:algorithm:remove&#39;]&quot;&gt;删除&lt;/el-button&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line"></span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot;&gt;</span>
+<span class="line">                  &lt;el-button type=&quot;warning&quot; plain icon=&quot;downloadFile&quot; @click=&quot;handleExport&quot;</span>
+<span class="line">                    v-hasPermi=&quot;[&#39;algorithm:algorithm:export&#39;]&quot;&gt;导出&lt;/el-button&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line">                &lt;!-- 刷新 --&gt;</span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot; v-if=&quot;!showCardData&quot;&gt;</span>
+<span class="line">                  &lt;right-toolbar v-model:showSearch=&quot;showSearch&quot; @queryTable=&quot;getList&quot;&gt;&lt;/right-toolbar&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line">                &lt;el-col :span=&quot;1.5&quot;&gt;</span>
+<span class="line">                  &lt;el-tooltip class=&quot;item&quot; effect=&quot;dark&quot; content=&quot;切换&quot; placement=&quot;top&quot;&gt;</span>
+<span class="line">                    &lt;el-button circle icon=&quot;Switch&quot; @click=&quot;changeShowLayout&quot; /&gt;</span>
+<span class="line">                  &lt;/el-tooltip&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line">              &lt;/el-row&gt;</span>
+<span class="line">            &lt;/el-col&gt;</span>
+<span class="line">          &lt;/el-row&gt;</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">          &lt;!-- 卡片列表 --&gt;</span>
+<span class="line">          &lt;div v-if=&quot;showCardData&quot;&gt;</span>
+<span class="line">            &lt;el-scrollbar </span>
+<span class="line">              @scroll=&quot;handleScroll&quot; </span>
+<span class="line">              :height=&quot;tableHeight&quot;</span>
+<span class="line">              :view-style=&quot;{ padding: &#39;0 20px&#39; }&quot;</span>
+<span class="line">            &gt;</span>
+<span class="line">              &lt;el-row :gutter=&quot;10&quot;&gt;</span>
+<span class="line">                &lt;el-col </span>
+<span class="line">                  :span=&quot;6&quot; </span>
+<span class="line">                  v-for=&quot;item in cardAlgorithmList&quot; </span>
+<span class="line">                  :key=&quot;item.id&quot; </span>
+<span class="line">                  style=&quot;margin-bottom: 10px&quot;</span>
+<span class="line">                &gt;</span>
+<span class="line">                  &lt;el-card class=&quot;algorithm-card&quot; style=&quot;width: 100%&quot; shadow=&quot;hover&quot;&gt;</span>
+<span class="line">                    &lt;template #header&gt;</span>
+<span class="line">                      &lt;div style=&quot;height: 22px&quot;&gt;</span>
+<span class="line">                        &lt;el-row justify=&quot;space-between&quot;&gt;</span>
+<span class="line">                          &lt;el-col :span=&quot;12&quot;&gt;</span>
+<span class="line">                            &lt;el-row&gt;</span>
+<span class="line">                              &lt;div v-if=&quot;item.iconUrl&quot;&gt;&lt;el-avatar :src=&quot;baseUrl + item.iconUrl&quot;</span>
+<span class="line">                                  size=&quot;small&quot;&gt;&lt;/el-avatar&gt;</span>
+<span class="line">                              &lt;/div&gt;</span>
+<span class="line">                              &lt;div class=&quot;title&quot;&gt;</span>
+<span class="line">                                {{ item.name }}</span>
+<span class="line">                              &lt;/div&gt;</span>
+<span class="line">                            &lt;/el-row&gt;</span>
+<span class="line">                          &lt;/el-col&gt;</span>
+<span class="line">                          &lt;el-col :span=&quot;12&quot;&gt;</span>
+<span class="line">                            &lt;div class=&quot;btnBox&quot;&gt;</span>
+<span class="line">                              &lt;el-link type=&quot;primary&quot; style=&quot;margin-right: 10px&quot; icon=&quot;Edit&quot;</span>
+<span class="line">                                @click=&quot;handleUpdate(item)&quot;&gt;修改&lt;/el-link&gt;</span>
+<span class="line">                              &lt;el-link type=&quot;danger&quot; icon=&quot;Delete&quot; @click=&quot;handleDelete(item)&quot;&gt;删除&lt;/el-link&gt;</span>
+<span class="line">                            &lt;/div&gt;</span>
+<span class="line">                          &lt;/el-col&gt;</span>
+<span class="line">                        &lt;/el-row&gt;</span>
+<span class="line">                      &lt;/div&gt;</span>
+<span class="line">                    &lt;/template&gt;</span>
+<span class="line">                    &lt;div style=&quot;height: 110px ;margin-bottom: 40px&quot;&gt;</span>
+<span class="line">                      &lt;!-- 卡片内容 --&gt;</span>
+<span class="line">                      &lt;el-row justify=&quot;space-between&quot; class=&quot;card-content&quot;&gt;</span>
+<span class="line">                        &lt;el-col :span=&quot;12&quot;&gt;</span>
+<span class="line">                          &lt;div style=&quot;margin-bottom: 20px&quot;&gt;算法类别: {{ item.type }}&lt;/div&gt;</span>
+<span class="line">                          &lt;div style=&quot;margin-bottom: 20px&quot;&gt;作者: {{ item.author }}&lt;/div&gt;</span>
+<span class="line">                        &lt;/el-col&gt;</span>
+<span class="line">                        &lt;el-col :span=&quot;12&quot;&gt;</span>
+<span class="line">                          &lt;div style=&quot;margin-bottom: 20px&quot;&gt;算法版本: {{ item.version }}&lt;/div&gt;</span>
+<span class="line">                          &lt;div style=&quot;white-space: nowrap&quot;&gt;</span>
+<span class="line">                            创建时间: &lt;span&gt;{{ item.createTime }}&lt;/span&gt;</span>
+<span class="line">                          &lt;/div&gt;</span>
+<span class="line">                        &lt;/el-col&gt;</span>
+<span class="line">                        &lt;el-col :span=&quot;24&quot;&gt;</span>
+<span class="line">                          &lt;!-- 描述信息，超过两行显示省略号 --&gt;</span>
+<span class="line">                          &lt;el-tooltip class=&quot;item&quot; effect=&quot;dark&quot; :content=&quot;item.description&quot; placement=&quot;top&quot;&gt;</span>
+<span class="line">                            &lt;div class=&quot;sl-2&quot; style=&quot;color: gray; &quot;&gt;描述：{{ item.description }}&lt;/div&gt;</span>
+<span class="line">                          &lt;/el-tooltip&gt;</span>
+<span class="line">                        &lt;/el-col&gt;</span>
+<span class="line">                      &lt;/el-row&gt;</span>
+<span class="line">                    &lt;/div&gt;</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">                    &lt;div style=&quot;height: 50px; width: 100%; background-color: #f5f7fb&quot;&gt;</span>
+<span class="line">                      &lt;el-row :gutter=&quot;10&quot;&gt;</span>
+<span class="line">                        &lt;el-col :span=&quot;12&quot; style=&quot;text-align: center&quot;&gt;</span>
+<span class="line">                          &lt;el-button style=&quot;line-height: 50px&quot; link type=&quot;primary&quot;</span>
+<span class="line">                            @click=&quot;showExcelPreview(item)&quot;&gt;预览&lt;/el-button&gt;</span>
+<span class="line">                        &lt;/el-col&gt;</span>
+<span class="line">                        &lt;div style=&quot;width: 2px;height: 30px;background-color: #CCCCCC; margin-top: 10px&quot; /&gt;</span>
+<span class="line">                        &lt;el-col :span=&quot;11&quot; style=&quot;text-align: center&quot;&gt;</span>
+<span class="line">                          &lt;el-button style=&quot;line-height: 50px&quot; link type=&quot;primary&quot;</span>
+<span class="line">                            @click=&quot;downloadFile(item)&quot;&gt;下载&lt;/el-button&gt;</span>
+<span class="line">                        &lt;/el-col&gt;</span>
+<span class="line">                      &lt;/el-row&gt;</span>
+<span class="line">                    &lt;/div&gt;</span>
+<span class="line">                  &lt;/el-card&gt;</span>
+<span class="line">                &lt;/el-col&gt;</span>
+<span class="line">              &lt;/el-row&gt;</span>
+<span class="line">            &lt;/el-scrollbar&gt;</span>
+<span class="line">          &lt;/div&gt;</span>
+<span class="line"> </span>
+<span class="line"></span>
+<span class="line">          &lt;!-- 列表形式 --&gt;</span>
+<span class="line"></span>
+<span class="line">          &lt;el-table v-if=&quot;!showCardData&quot; v-loading=&quot;loading&quot; :data=&quot;algorithmList&quot;</span>
+<span class="line">            @selection-change=&quot;handleSelectionChange&quot; :height=&quot;tableHeight&quot;&gt;</span>
+<span class="line">            &lt;el-table-column type=&quot;selection&quot; width=&quot;55&quot; align=&quot;center&quot; /&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;序号&quot; type=&quot;index&quot; width=&quot;50&quot; align=&quot;center&quot;&gt;</span>
+<span class="line">              &lt;template #default=&quot;scope&quot;&gt;</span>
+<span class="line">                &lt;span&gt;{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}&lt;/span&gt;</span>
+<span class="line">              &lt;/template&gt;</span>
+<span class="line">            &lt;/el-table-column&gt;</span>
+<span class="line"></span>
+<span class="line">            &lt;el-table-column label=&quot;图标&quot; align=&quot;center&quot; prop=&quot;iconUrl&quot;&gt;</span>
+<span class="line">              &lt;template #default=&quot;scope&quot;&gt;</span>
+<span class="line">                &lt;el-image :src=&quot;baseUrl + scope.row.iconUrl&quot; :fit=&quot;fit&quot; :lazy=&quot;true&quot; preview-teleported</span>
+<span class="line">                  :preview-src-list=&quot;[baseUrl + scope.row.iconUrl]&quot; style=&quot;height: 32px; width: 32px;&quot; /&gt;</span>
+<span class="line">              &lt;/template&gt;</span>
+<span class="line">            &lt;/el-table-column&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;名称&quot; align=&quot;center&quot; prop=&quot;name&quot; /&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;算法类别&quot; align=&quot;center&quot; prop=&quot;type&quot; /&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;作者&quot; align=&quot;center&quot; prop=&quot;author&quot; /&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;算法版本&quot; align=&quot;center&quot; prop=&quot;version&quot; /&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;创建时间&quot; align=&quot;center&quot; prop=&quot;createTime&quot; width=&quot;100&quot;&gt;</span>
+<span class="line">              &lt;template #default=&quot;scope&quot;&gt;</span>
+<span class="line">                &lt;span&gt;{{ parseTime(scope.row.createTime, &#39;{y}-{m}-{d}&#39;) }}&lt;/span&gt;</span>
+<span class="line">              &lt;/template&gt;</span>
+<span class="line">            &lt;/el-table-column&gt;</span>
+<span class="line">            &lt;el-table-column label=&quot;操作&quot; align=&quot;center&quot; class-name=&quot;small-padding fixed-width&quot; width=&quot;300&quot;&gt;</span>
+<span class="line">              &lt;template #default=&quot;scope&quot;&gt;</span>
+<span class="line">                &lt;el-button link type=&quot;primary&quot; icon=&quot;Tickets&quot; @click=&quot;showExcelPreview(scope.row)&quot;</span>
+<span class="line">                  v-hasPermi=&quot;[&#39;deployPlan:deployPlan:edit&#39;]&quot;&gt;预览&lt;/el-button&gt;</span>
+<span class="line">                &lt;el-button link type=&quot;primary&quot; icon=&quot;Tickets&quot; @click=&quot;downloadFile(scope.row)&quot;</span>
+<span class="line">                  v-hasPermi=&quot;[&#39;deployPlan:deployPlan:edit&#39;]&quot;&gt;下载&lt;/el-button&gt;</span>
+<span class="line">              &lt;/template&gt;</span>
+<span class="line">            &lt;/el-table-column&gt;</span>
+<span class="line">          &lt;/el-table&gt;</span>
+<span class="line">          &lt;pagination v-if=&quot;!showCardData&quot; v-show=&quot;total &gt;= 0&quot; :total=&quot;total&quot; v-model:page=&quot;queryParams.pageNum&quot;</span>
+<span class="line">            v-model:limit=&quot;queryParams.pageSize&quot; @pagination=&quot;getList&quot; /&gt;</span>
+<span class="line">        &lt;/el-card&gt;</span>
+<span class="line">      &lt;/el-col&gt;</span>
+<span class="line">    &lt;/el-row&gt;</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">&lt;!-- 新增与修改  --&gt;</span>
+<span class="line">    &lt;el-dialog :title=&quot;title&quot; v-model=&quot;open&quot; width=&quot;500px&quot; append-to-body&gt;</span>
+<span class="line">      &lt;el-form ref=&quot;algorithmRef&quot; :model=&quot;form&quot; :rules=&quot;rules&quot; label-width=&quot;80px&quot;&gt;</span>
+<span class="line"></span>
+<span class="line">        &lt;el-form-item label=&quot;名称&quot; prop=&quot;name&quot;&gt;</span>
+<span class="line">          &lt;el-input v-model=&quot;form.name&quot; placeholder=&quot;请输入名称&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line"></span>
+<span class="line">        &lt;el-form-item label=&quot;作者&quot; prop=&quot;author&quot;&gt;</span>
+<span class="line">          &lt;el-input v-model=&quot;form.author&quot; placeholder=&quot;请输入作者&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">        &lt;el-form-item label=&quot;算法类别&quot; prop=&quot;type&quot;&gt;</span>
+<span class="line">          &lt;el-input v-model=&quot;form.type&quot; placeholder=&quot;请输入类别&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">        &lt;el-form-item label=&quot;版本&quot; prop=&quot;version&quot;&gt;</span>
+<span class="line">          &lt;el-input v-model=&quot;form.version&quot; placeholder=&quot;请输入版本&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">        &lt;el-form-item label=&quot;创建时间&quot; prop=&quot;createTime&quot;&gt;</span>
+<span class="line">          &lt;el-date-picker v-model=&quot;form.createTime&quot; type=&quot;date&quot; value-format=&quot;YYYY-MM-DD HH:mm:ss&quot; placeholder=&quot;请选择创建日期&quot;</span>
+<span class="line">            style=&quot;width: 100%&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">        &lt;el-form-item label=&quot;描述&quot; prop=&quot;description&quot;&gt;</span>
+<span class="line">          &lt;el-input type=&quot;textarea&quot; v-model=&quot;form.description&quot; placeholder=&quot;请输入描述&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">        &lt;el-form-item label=&quot;文件上传&quot; prop=&quot;fileUrl&quot;&gt;</span>
+<span class="line">          &lt;el-upload style=&quot;width: 100%&quot; :action=&quot;uploadFileUrl&quot; :headers=&quot;headers&quot; :show-file-list=&quot;true&quot;</span>
+<span class="line">            :file-list=&quot;fileList&quot; :limit=&quot;1&quot; :before-upload=&quot;handleBeforeUpload&quot; :on-exceed=&quot;handleExceed&quot;</span>
+<span class="line">            :on-success=&quot;handleUploadSuccess&quot;&gt;</span>
+<span class="line">            &lt;el-button type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt;</span>
+<span class="line">          &lt;/el-upload&gt;</span>
+<span class="line"></span>
+<span class="line">          &lt;!-- &lt;file-upload-no-auto</span>
+<span class="line">                  ref=&quot;modelFileUpload&quot;</span>
+<span class="line">                  :file-type=&quot;[&#39;zip&#39;, &#39;rar&#39;]&quot;</span>
+<span class="line">                  :limit=&quot;1&quot;</span>
+<span class="line">                  :file-size=&quot;500&quot;</span>
+<span class="line">                  :is-show-file-list=&quot;true&quot;</span>
+<span class="line">                  :temp=&quot;true&quot;</span>
+<span class="line">                  moduleName=&quot;entityLib&quot;</span>
+<span class="line">                  upload-btn-name=&quot;选取文件&quot;</span>
+<span class="line">                  @fileChange=&quot;handleUploadChange&quot;</span>
+<span class="line">                  @fileDelete=&quot;handleUploadDelete&quot;</span>
+<span class="line">                  :fileIds=&quot;importForm.fileId&quot;</span>
+<span class="line">              /&gt; --&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line"></span>
+<span class="line">        &lt;el-form-item label=&quot;图标&quot; prop=&quot;iconUrl&quot;&gt;</span>
+<span class="line">          &lt;imageUpload :limit=&quot;1&quot; v-model=&quot;form.iconUrl&quot; moduleName=&quot;armyIcon&quot; /&gt;</span>
+<span class="line">        &lt;/el-form-item&gt;</span>
+<span class="line">      &lt;/el-form&gt;</span>
+<span class="line">      &lt;template #footer&gt;</span>
+<span class="line">        &lt;div class=&quot;dialog-footer&quot;&gt;</span>
+<span class="line">          &lt;el-button type=&quot;primary&quot; @click=&quot;submitForm&quot;&gt;确 定&lt;/el-button&gt;</span>
+<span class="line">          &lt;el-button @click=&quot;cancel&quot;&gt;取 消&lt;/el-button&gt;</span>
+<span class="line">        &lt;/div&gt;</span>
+<span class="line">      &lt;/template&gt;</span>
+<span class="line">    &lt;/el-dialog&gt;</span>
+<span class="line"></span>
+<span class="line">  &lt;/div&gt;</span>
+<span class="line">  &lt;el-dialog v-model=&quot;isPreviewVisible&quot; title=&quot;Excel 预览&quot;  width=&quot;50vw&quot; &gt;</span>
+<span class="line">        &lt;vue-office-excel :src=&quot;currentFileUrl&quot;  style=&quot;height: 70vh;&quot; /&gt;</span>
+<span class="line">    </span>
+<span class="line">      &lt;template #footer&gt;</span>
+<span class="line">        &lt;div class=&quot;dialog-footer&quot;&gt;</span>
+<span class="line">          &lt;el-button @click=&quot;isPreviewVisible = false&quot;&gt;关闭&lt;/el-button&gt;</span>
+<span class="line">        &lt;/div&gt;</span>
+<span class="line">      &lt;/template&gt;</span>
+<span class="line">    &lt;/el-dialog&gt;</span>
+<span class="line">&lt;/template&gt;</span>
+<span class="line"></span>
+<span class="line">&lt;script setup name=&quot;Algorithm&quot;&gt;</span>
+<span class="line">import VueOfficeExcel from &#39;@vue-office/excel&#39;</span>
+<span class="line">import &#39;@vue-office/excel/lib/index.css&#39;</span>
+<span class="line">import { getToken } from &#39;@/utils/auth&#39;</span>
+<span class="line">import { listAlgorithm, getAlgorithm, delAlgorithm, addAlgorithm, updateAlgorithm } from &#39;@/api/rms/algorithm&#39;</span>
+<span class="line">const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + &#39;/common/upload&#39;) // 上传文件服务器地址</span>
+<span class="line">const headers = ref({ Authorization: &#39;Bearer &#39; + getToken() })</span>
+<span class="line">const { proxy } = getCurrentInstance()</span>
+<span class="line">const algorithmList = ref([]) // 算法列表</span>
+<span class="line">const tableHeight=&quot;calc(100vh - 340px)&quot;;</span>
+<span class="line">const cardAlgorithmList= ref([])</span>
+<span class="line">const open = ref(false) // 控制弹出框的显示</span>
+<span class="line">const loading = ref(true) // 加载状态</span>
+<span class="line">const showSearch = ref(true) // 控制搜索框的显示</span>
+<span class="line">const ids = ref([]) // 选中的算法ID</span>
+<span class="line">const single = ref(true) // 是否单选</span>
+<span class="line">const multiple = ref(true) // 是否多选</span>
+<span class="line">const total = ref(0) // 总数</span>
+<span class="line">const title = ref(&#39;&#39;) // 弹出框标题</span>
+<span class="line">const fileList = ref([]) // 文件列表</span>
+<span class="line">const logoFileList = ref([]) // logo文件列表</span>
+<span class="line">const fileType = ref([&#39;xlsx&#39;, &#39;xls&#39;]) // 允许的文件类型</span>
+<span class="line">const logoType = ref([&#39;png&#39;, &#39;jpg&#39;, &#39;icon&#39;]) // 允许的logo文件类型</span>
+<span class="line">const isPreviewVisible = ref(false)</span>
+<span class="line">const currentFileUrl = ref(&#39;&#39;) // 当前预览的文件 URL</span>
+<span class="line">const baseUrl = process.env.API_BASE</span>
+<span class="line">const previousRowNum = ref(0)  // 当前行号</span>
+<span class="line">const data = reactive({</span>
+<span class="line">  form: {}, // 表单数据</span>
+<span class="line">  queryParams: {</span>
+<span class="line">    pageNum: 1, // 当前页码</span>
+<span class="line">    pageSize: 10, // 每页显示数量</span>
+<span class="line">    name: null, // 查询参数：名称</span>
+<span class="line">    type: null // 查询参数：类型</span>
+<span class="line">  },</span>
+<span class="line">  cardQueryParams: {</span>
+<span class="line">    pageNum: 1, // 当前页码</span>
+<span class="line">    pageSize: 10, // 每页显示数量</span>
+<span class="line">    name: null, // 查询参数：名称</span>
+<span class="line">    type: null // 查询参数：类型</span>
+<span class="line">  },</span>
+<span class="line">  rules: {</span>
+<span class="line">    name: [{ required: true, message: &#39;名称不能为空&#39;, trigger: &#39;blur&#39; }, { min: 1, max: 50, message: &#39;长度必须在 1 到 50 个字符之间&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    author: [{ required: true, message: &#39;作者不能为空&#39;, trigger: &#39;blur&#39; }, { min: 1, max: 50, message: &#39;长度必须在 1 到 50 个字符之间&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    type: [{ required: true, message: &#39;类型不能为空&#39;, trigger: &#39;blur&#39; }, { min: 1, max: 50, message: &#39;长度必须在 1 到 50 个字符之间&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    version: [{ max: 50, message: &#39;长度必须在 50 个字符之内&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    description: [{ required: true, message: &#39;描述不能为空&#39;, trigger: &#39;blur&#39; }, { min: 1, max: 255, message: &#39;长度必须在 1 到 255 个字符之间&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    createTime: [{ required: true, message: &#39;时间不能为空&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    fileUrl: [{ required: true, message: &#39;算法文件不能为空&#39;, trigger: &#39;blur&#39; }],</span>
+<span class="line">    iconUrl: [{ required: true, message: &#39;头像不能为空&#39;, trigger: &#39;blur&#39; }]</span>
+<span class="line">  }</span>
+<span class="line">})</span>
+<span class="line">// const options = ref({</span>
+<span class="line"></span>
+<span class="line">//   beforeTransformData: (workbookData) =&gt; { return workbookData }, //底层通过exceljs获取excel文件内容，通过该钩子函数，可以对获取的excel文件内容进行修改，比如某个单元格的数据显示不正确，可以在此自行修改每个单元格的value值。</span>
+<span class="line">//   transformData: (workbookData) =&gt; { return workbookData }, //将获取到的excel数据进行处理之后且渲染到页面之前可通过transformData对即将渲染的数据及样式进行修改，此时每个单元格的text值就是即将渲染到页面上的内容</span>
+<span class="line">// })</span>
+<span class="line">const { queryParams,cardQueryParams ,form, rules } = toRefs(data)</span>
+<span class="line"></span>
+<span class="line">const showCardData = ref(true) // 默认为 true</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">/** 查询算法理列表 */</span>
+<span class="line">function getList() {</span>
+<span class="line">  loading.value = true</span>
+<span class="line">  listAlgorithm(queryParams.value).then(response =&gt; {</span>
+<span class="line">    algorithmList.value = response.rows</span>
+<span class="line">    // 格式化创建时间</span>
+<span class="line">    algorithmList.value.forEach(element =&gt; {</span>
+<span class="line">      let str = element.createTime.substring(0, 11)</span>
+<span class="line">      element.createTime = str</span>
+<span class="line">    })</span>
+<span class="line">    total.value = response.total</span>
+<span class="line">    loading.value = false</span>
+<span class="line">  })</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function refreshList() {</span>
+<span class="line">  previousRowNum.value = 0</span>
+<span class="line">  cardQueryParams.value.pageNum = 1</span>
+<span class="line">  loading.value = true</span>
+<span class="line">  listAlgorithm(cardQueryParams.value).then(response =&gt; {</span>
+<span class="line">    cardAlgorithmList.value = response.rows</span>
+<span class="line">    // 格式化创建时间</span>
+<span class="line">    cardAlgorithmList.value.forEach(element =&gt; {</span>
+<span class="line">      let str = element.createTime.substring(0, 11)</span>
+<span class="line">      element.createTime = str</span>
+<span class="line">    })</span>
+<span class="line">    total.value = response.total</span>
+<span class="line">    loading.value = false</span>
+<span class="line">  })</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// 取消按钮</span>
+<span class="line">function cancel() {</span>
+<span class="line">  open.value = false</span>
+<span class="line">  reset()</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 导出按钮操作 */</span>
+<span class="line">function handleExport() {</span>
+<span class="line">  proxy.download(&#39;rms/algorithm/export&#39;, {</span>
+<span class="line">    ...queryParams.value</span>
+<span class="line">  }, `algorithm_${new Date().getTime()}.xlsx`)</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// 表单重置</span>
+<span class="line">function reset() {</span>
+<span class="line">  form.value = {</span>
+<span class="line">    id: null,</span>
+<span class="line">    name: null,</span>
+<span class="line">    author: null,</span>
+<span class="line">    type: null,</span>
+<span class="line">    version: null,</span>
+<span class="line">    description: null,</span>
+<span class="line">    updateTime: null,</span>
+<span class="line">    fileUrl: null,</span>
+<span class="line">    fileName: null,</span>
+<span class="line">    iconUrl: null,</span>
+<span class="line">    createTime: null</span>
+<span class="line">  }</span>
+<span class="line">  fileList.value = []</span>
+<span class="line">  logoFileList.value = []</span>
+<span class="line">  proxy.resetForm(&#39;algorithmRef&#39;)</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 搜索按钮操作 */</span>
+<span class="line">function handleQuery() {</span>
+<span class="line">  queryParams.value.pageNum = 1</span>
+<span class="line">  getList()</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 重置按钮操作 */</span>
+<span class="line">function resetQuery() {</span>
+<span class="line">  proxy.resetForm(&#39;queryForm&#39;)</span>
+<span class="line">  handleQuery()</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// 切换列表数据方法</span>
+<span class="line">function changeShowLayout() {</span>
+<span class="line">  showCardData.value = !showCardData.value</span>
+<span class="line">  if (!showCardData.value) {</span>
+<span class="line">    getList()</span>
+<span class="line">  }</span>
+<span class="line"></span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">// 多选框选中数据</span>
+<span class="line">function handleSelectionChange(selection) {</span>
+<span class="line">  ids.value = selection.map(item =&gt; item.id)</span>
+<span class="line">  single.value = selection.length != 1</span>
+<span class="line">  multiple.value = !selection.length</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// 上传成功回调</span>
+<span class="line">function handleUploadSuccess(res, file) {</span>
+<span class="line">  form.value.fileUrl = res.fileName</span>
+<span class="line">  form.value.fileName = res.originalFilename</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// 上传前校检格式和大小</span>
+<span class="line">function handleBeforeUpload(file) {</span>
+<span class="line">  // 校检文件类型</span>
+<span class="line">  if (fileType.value.length) {</span>
+<span class="line">    const fileName = file.name.split(&#39;.&#39;)</span>
+<span class="line">    const fileExt = fileName[fileName.length - 1]</span>
+<span class="line">    const isTypeOk = fileType.value.indexOf(fileExt) &gt;= 0</span>
+<span class="line">    if (!isTypeOk) {</span>
+<span class="line">      proxy.$modal.msgError(`文件格式不正确, 请上传${fileType.value.join(&#39;/&#39;)}格式文件!`)</span>
+<span class="line">      return false</span>
+<span class="line">    }</span>
+<span class="line">  }</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function showExcelPreview(item) {</span>
+<span class="line">  currentFileUrl.value = baseUrl + item.fileUrl // 设置当前预览的文件 URL</span>
+<span class="line">  isPreviewVisible.value = true</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">// logo上传前校检格式和大小</span>
+<span class="line">function logoHandleBeforeUpload(file) {</span>
+<span class="line">  // 校检文件类型</span>
+<span class="line">  if (fileType.value.length) {</span>
+<span class="line">    const fileName = file.name.split(&#39;.&#39;)</span>
+<span class="line">    const fileExt = fileName[fileName.length - 1]</span>
+<span class="line">    const isTypeOk = logoType.value.indexOf(fileExt) &gt;= 0</span>
+<span class="line">    if (!isTypeOk) {</span>
+<span class="line">      proxy.$modal.msgError(`文件格式不正确, 请上传${logoType.value.join(&#39;/&#39;)}格式文件!`)</span>
+<span class="line">      return false</span>
+<span class="line">    }</span>
+<span class="line">  }</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function handleExceed() {</span>
+<span class="line">  proxy.$modal.msgError(`上传文件数量不能超过 1个!`)</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function downloadFile(item) {</span>
+<span class="line">  window.location.href = baseUrl+item.fileUrl</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 新增按钮操作 */</span>
+<span class="line">function handleAdd() {</span>
+<span class="line">  reset()</span>
+<span class="line">  open.value = true</span>
+<span class="line">  title.value = &#39;新增算法&#39;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 修改按钮操作 */</span>
+<span class="line">function handleUpdate(row) {</span>
+<span class="line">  reset()</span>
+<span class="line">  const _id = row.id || ids.value</span>
+<span class="line">  getAlgorithm(_id).then(response =&gt; {</span>
+<span class="line">    form.value = response.data</span>
+<span class="line">    fileList.value = [{ url: response.data.fileUrl, name: response.data.fileName }]</span>
+<span class="line">    open.value = true</span>
+<span class="line">    title.value = &#39;修改算法管理&#39;</span>
+<span class="line">  })</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 提交按钮 */</span>
+<span class="line">function submitForm() {</span>
+<span class="line">  proxy.$refs[&#39;algorithmRef&#39;].validate(valid =&gt; {</span>
+<span class="line">    if (valid) {</span>
+<span class="line">      if (form.value.id != null) {</span>
+<span class="line">        updateAlgorithm(form.value).then(response =&gt; {</span>
+<span class="line">          proxy.$modal.msgSuccess(&#39;修改成功&#39;)</span>
+<span class="line">          open.value = false</span>
+<span class="line">            refreshList()</span>
+<span class="line">            getList()</span>
+<span class="line">         </span>
+<span class="line">        })</span>
+<span class="line">      } else {</span>
+<span class="line">        addAlgorithm(form.value).then(response =&gt; {</span>
+<span class="line">          proxy.$modal.msgSuccess(&#39;新增成功&#39;)</span>
+<span class="line">          open.value = false</span>
+<span class="line">            refreshList()</span>
+<span class="line">            getList()</span>
+<span class="line">    </span>
+<span class="line">            })</span>
+<span class="line">          }</span>
+<span class="line">    }</span>
+<span class="line">  })</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">/** 删除按钮操作 */</span>
+<span class="line">function handleDelete(row) {</span>
+<span class="line">  const _ids = row.id || ids.value</span>
+<span class="line">  proxy.$modal</span>
+<span class="line">    .confirm(&#39;是否确认删除算法管理编号为&quot;&#39; + _ids + &#39;&quot;的数据项？&#39;)</span>
+<span class="line">    .then(function () {</span>
+<span class="line">      return delAlgorithm(_ids)</span>
+<span class="line">    })</span>
+<span class="line">    .then(() =&gt; {</span>
+<span class="line">        refreshList()</span>
+<span class="line">        getList()</span>
+<span class="line">      proxy.$modal.msgSuccess(&#39;删除成功&#39;)</span>
+<span class="line">    })</span>
+<span class="line">    .catch(() =&gt; { })</span>
+<span class="line">}</span>
+<span class="line">// 之前的行号</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">const handleScroll = (event) =&gt; {</span>
+<span class="line">  const { scrollTop } = event</span>
+<span class="line">  console.log(previousRowNum.value,&quot;handleScroll&quot;);</span>
+<span class="line">  </span>
+<span class="line">  if (scrollTop-previousRowNum.value &gt;=15) {</span>
+<span class="line">    previousRowNum.value = scrollTop</span>
+<span class="line">    const maxPage = Math.ceil(total.value / cardQueryParams.value.pageSize)</span>
+<span class="line">    if (cardQueryParams.value.pageNum &lt; maxPage) {</span>
+<span class="line">      loading.value = true</span>
+<span class="line">      cardQueryParams.value.pageNum = cardQueryParams.value.pageNum + 1</span>
+<span class="line">      // 调用实际的API获取数据</span>
+<span class="line">      listAlgorithm(cardQueryParams.value).then(response =&gt; {</span>
+<span class="line">        // 格式化创建时间</span>
+<span class="line">        response.rows.forEach(element =&gt; {</span>
+<span class="line">          element.createTime = element.createTime.substring(0, 11)</span>
+<span class="line">        })</span>
+<span class="line">        cardAlgorithmList.value = [...cardAlgorithmList.value, ...response.rows]</span>
+<span class="line">        total.value = response.total</span>
+<span class="line">      })</span>
+<span class="line">    }</span>
+<span class="line">  }</span>
+<span class="line"></span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">refreshList()</span>
+<span class="line"></span>
+<span class="line">getList()</span>
+<span class="line">&lt;/script&gt;</span>
+<span class="line"></span>
+<span class="line">&lt;style scoped&gt;</span>
+<span class="line">.btnBox {</span>
+<span class="line">  display: flex;</span>
+<span class="line">  justify-content: flex-end;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">.sl-2 {</span>
+<span class="line">  overflow: hidden;</span>
+<span class="line">  text-overflow: ellipsis;</span>
+<span class="line">  display: -webkit-box;</span>
+<span class="line">  -webkit-line-clamp: 2;</span>
+<span class="line">  -webkit-box-orient: vertical;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">.avatar-uploader .avatar {</span>
+<span class="line">  width: 40px;</span>
+<span class="line">  height: 40px;</span>
+<span class="line">  display: block;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">.avatar-uploader .el-upload {</span>
+<span class="line">  border: 1px dashed var(--el-border-color);</span>
+<span class="line">  border-radius: 6px;</span>
+<span class="line">  cursor: pointer;</span>
+<span class="line">  position: relative;</span>
+<span class="line">  overflow: hidden;</span>
+<span class="line">  transition: var(--el-transition-duration-fast);</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">.avatar-uploader .el-upload:hover {</span>
+<span class="line">  border-color: var(--el-color-primary);</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">.el-icon.avatar-uploader-icon {</span>
+<span class="line">  font-size: 28px;</span>
+<span class="line">  color: #8c939d;</span>
+<span class="line">  width: 40px;</span>
+<span class="line">  height: 40px;</span>
+<span class="line">  text-align: center;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">&lt;/style&gt;</span>
+<span class="line"></span>
+<span class="line"></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!--]--></div><footer class="vp-page-meta"><!----><div class="vp-meta-item git-info"><div class="vp-meta-item last-updated"><span class="meta-item-label">Last Updated: </span><!----></div><div class="vp-meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: 124034918@qq.com">miaol</span><!----><!--]--><!--]--></span></div></div></footer><!----><!--[--><!--]--></main><!--]--></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-B5Cr9W1e.js" defer></script>
+  </body>
+</html>
