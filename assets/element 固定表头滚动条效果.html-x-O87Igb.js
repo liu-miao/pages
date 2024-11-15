@@ -1,4 +1,4 @@
-import{_ as s,c as l,d as e,o as a}from"./app-n5mMeFzf.js";const i={};function d(t,n){return a(),l("div",null,n[0]||(n[0]=[e(`<p>element 固定表头滚动条效果</p><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">    &lt;!-- 传递关系对话框 --&gt;</span>
+import{_ as s,c as l,d as e,o as a}from"./app-B0PxVMas.js";const i={};function d(t,n){return a(),l("div",null,n[0]||(n[0]=[e(`<p>element 固定表头滚动条效果</p><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">    &lt;!-- 传递关系对话框 --&gt;</span>
 <span class="line">    &lt;el-dialog v-model=&quot;relationDialogVisible&quot; title=&quot;传递关系&quot; width=&quot;800px&quot; append-to-body&gt;</span>
 <span class="line">      &lt;!-- 添加一个固定高度的容器 --&gt;</span>
 <span class="line">      &lt;div class=&quot;relation-table-container&quot;&gt;</span>
