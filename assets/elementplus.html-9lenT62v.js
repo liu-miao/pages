@@ -1,4 +1,4 @@
-import{_ as n,c as l,d as s,o as t}from"./app-mxM55UQx.js";const i={};function a(d,e){return t(),l("div",null,e[0]||(e[0]=[s(`<p>表格中图像显示</p><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line"></span>
+import{_ as n,c as l,d as s,o as t}from"./app-n5mMeFzf.js";const i={};function a(d,e){return t(),l("div",null,e[0]||(e[0]=[s(`<p>表格中图像显示</p><div class="language-text line-numbers-mode" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line"></span>
 <span class="line">  &lt;el-table-column width=&quot;180&quot;&gt;</span>
 <span class="line">    &lt;template #default=&quot;scope&quot;&gt;</span>
 <span class="line">      &lt;el-image preview-teleported :preview-src-list=&quot;srcList&quot; /&gt;</span>
